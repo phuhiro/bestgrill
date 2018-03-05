@@ -71,6 +71,12 @@
     <Compile Include="Admin.Designer.cs">
       <DependentUpon>Admin.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdminUi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminUi.Designer.cs">
+      <DependentUpon>AdminUi.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataGridViewNumericUpDownElements\NumericUpDownColumn.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -104,6 +110,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Admin.resx">
       <DependentUpon>Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminUi.resx">
+      <DependentUpon>AdminUi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>

@@ -10,3 +10,4 @@ c:\users\minh hau\documents\visual studio 2013\Projects\BestGrill\BestGrill\obj\
 c:\users\minh hau\documents\visual studio 2013\Projects\BestGrill\BestGrill\obj\Debug\BestGrill.Admin.resources
 c:\users\minh hau\documents\visual studio 2013\Projects\BestGrill\BestGrill\bin\Debug\MySql.Data.dll
 C:\Users\Minh Hau\documents\visual studio 2013\Projects\BestGrill\BestGrill\obj\Debug\BestGrill.FormLogin.resources
+C:\Users\Minh Hau\Documents\Visual Studio 2013\Projects\BestGrill\BestGrill\obj\Debug\BestGrill.AdminUi.resources

@@ -33,9 +33,10 @@ namespace BestGrill.DB
             return id;
         }
 
-        public Int64 PayBill(Int64 billId,float subtotal,float discount,float total)
+        public Int64 PayBill(Int64 billId,float subtotal,float vat,float discount)
         {
             Int64 id = 0;
+            float total = subtotal + subtotal * vat / 100 - subtotal * discount / 100;
             string query = "UPDATE bill SET status = 1, subtotal = "+subtotal +", discount = "+ discount + " , total = "+ total + 
                 " WHERE id = " + billId;
             id = (Int64)DataProvider.Instance.ExecuteNonQuery(query);
