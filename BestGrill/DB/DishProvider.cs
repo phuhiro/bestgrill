@@ -18,6 +18,18 @@ namespace BestGrill.DB
             private set { DishProvider.instance = value; }
         }
 
+        public List<Dish> loadAllDish()
+        {
+            List<Dish> lDish = new List<Dish>();
+            string query = "SELECT * FROM dish";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow row in data.Rows)
+            {
+                Dish tmp = new Dish(row);
+                lDish.Add(tmp);
+            }
+            return lDish;
+        }
         public List<Dish> loadDishByCategory(int categoryId)
         {
             List<Dish> listDish = new List<Dish>();

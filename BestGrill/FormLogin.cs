@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BestGrill.DB;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,20 @@ namespace BestGrill
         public FormLogin()
         {
             InitializeComponent();
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            string username = tbUsername.Text;
+            string password = tbPassword.Text;
+            var checkLogin = UserProvider.Instance.checkUser(username, password);
+            if (checkLogin)
+            {             
+                this.Close();
+                AdminUi adUi = new AdminUi();
+                adUi.BringToFront();
+                adUi.Show();
+            }
         }
     }
 }

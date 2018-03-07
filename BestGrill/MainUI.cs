@@ -17,14 +17,17 @@ namespace BestGrill
     public partial class MainUI : Form
     {
         private static int tableSelected = 0;
+        private Table objTableSelected; 
         private Int64 billSelected = 0;
         public MainUI()
         {
             InitializeComponent();
+            lbDiscount.Text = "0 %";
             LoadTabeList();
             LoadCategoryList();
             dvBill.Visible = false;
             IntForm();
+
         }
         #region Methods
         /// <summary>
@@ -67,7 +70,7 @@ namespace BestGrill
             }
             if(billSelected == 0)
             {
-                btnPay.Enabled = false;
+                DisablePayFunction();
             }
         }
 
@@ -93,31 +96,50 @@ namespace BestGrill
         public void ResetBillPanel()
         {
             lbSubTotal.Text = "0";
-            lbDiscount.Text = "0";
-            lbVat.Text = "0%";
             lbTotal.Text = "0";
             lbEmptyBill.Text = "Chưa gọi món";
             lbEmptyBill.Visible = true;
             dvBill.Visible = false;
+            this.DisablePayFunction();
         }
 
+        /// <summary>
+        /// Disable cac chuc nang thanh toan, in hoa don, chuyen ban
+        /// </summary>
+        public void DisablePayFunction()
+        {
+            btnPay.Enabled = false;
+            btnPrintBill.Enabled = false;
+            btnMoveTable.Enabled = false;
+        }
+        public void EnablePayFunction()
+        {
+            btnPay.Enabled = true;
+            btnPrintBill.Enabled = true;
+            btnMoveTable.Enabled = true;
+        }
         public void LoadBillItem(Int64 billId)
         {
-            float totalBill = 0;
+            float discount = float.Parse(lbDiscount.Text.Split(' ')[0]);
+            float vat = float.Parse(lbVat.Text.Split(' ')[0]);
+            float subTotal = 0;
             billItemBindingSource.Clear();
             List<BillItem> listBillItem = BillItemProvider.Instance.loadBillItemById(billId);
             foreach(BillItem item in listBillItem)
             {
                 billItemBindingSource.Add(item);
-                totalBill += item.Total;
+                subTotal += item.Total;
             }
             lbEmptyBill.Visible = false;
-            lbSubTotal.Text = totalBill.ToString();
+            float totalBill = subTotal + subTotal * vat / 100 - subTotal * discount / 100;
+            lbSubTotal.Text = String.Format("{0:0,0 VND}", subTotal);
+            lbTotal.Text = String.Format("{0:0,0 VND}", totalBill);
             dvBill.Visible = true;
         }
 
         public void AddDishToBill()
         {
+            if (dvDish.SelectedRows.Count == 0) return;
             var row = dvDish.SelectedRows[0];
             int dishId = (int)(row.Cells[0].Value);
             int quantity = (int)numDish.Value;
@@ -136,10 +158,11 @@ namespace BestGrill
 
         public void PayBill(Int64 billId)
         {
-            float subTotal = float.Parse(lbSubTotal.Text.ToString());
-            float discount = float.Parse(lbDiscount.Text.ToString());
-            float total = float.Parse(lbTotal.Text.ToString());
-            BillProvider.Instance.PayBill(billId, subTotal, discount, total);
+            float subTotal = float.Parse(lbSubTotal.Text.Split(' ')[0]);
+            float discount = float.Parse(lbDiscount.Text.Split(' ')[0]);
+            float vat = float.Parse(lbVat.Text.Split(' ')[0]);
+            float total = float.Parse(lbTotal.Text.Split(' ')[0]);
+            BillProvider.Instance.PayBill(billId, subTotal, vat,discount);
             TableProvider.Instance.UpdateStatus(tableSelected,0);
             this.LoadTabeList();
             this.ResetBillPanel();
@@ -167,25 +190,27 @@ namespace BestGrill
         {
             // Enable Button AddDish
             btnAddDish.Enabled = true;
-            // Enable Thanh toan button
-            btnPay.Enabled = true;
             Table selected = (sender as Button).Tag as Table;
             string name = selected.Name;
             int tableId = selected.ID;
             tableSelected = tableId;
+            this.objTableSelected = selected;
             lbTableSelected.Text = name;
             lbTableSelected.Font = new Font(lbTableSelected.Font.Name, 12, FontStyle.Bold);
             DataTable data = BillProvider.Instance.LoadBillByTableId(tableId);
+            // Neu ban chua co hoa don
             if (data.Rows.Count == 0)
             {
                 ResetBillPanel();
                 this.billSelected = 0;
+                DisablePayFunction();
                 return;
             }
             Bill billSelected = new Bill(data.Rows[0]);
             Int64 billId = billSelected.ID;
             this.billSelected = billId;
             LoadBillItem(billId);
+            EnablePayFunction();
         }
 
         private void dvDish_SelectionChanged(object sender, EventArgs e)
@@ -202,6 +227,7 @@ namespace BestGrill
             if(this.billSelected == 0)
             {
                 this.billSelected = CreateNewBill();
+                EnablePayFunction();
             }
 
             AddDishToBill();
@@ -209,7 +235,30 @@ namespace BestGrill
 
         private void btnPay_Click(object sender, EventArgs e)
         {
-            PayBill(this.billSelected);
+            DialogResult result = MessageBox.Show( "Bạn có chắc muốn thanh toán " + this.objTableSelected.Name + "?","Xác nhận thanh toán"
+                                                    , MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if(result == DialogResult.OK)
+            {
+                PayBill(this.billSelected);
+            }
+        }
+
+        private void đăngNhậpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormLogin fLogin = new FormLogin();
+            fLogin.ShowDialog();
+        }
+
+        private void btnPrintBill_Click(object sender, EventArgs e)
+        {
+            ReportForm rpf = new ReportForm();
+            rpf.BillId = this.billSelected;
+            rpf.SubTotal = lbSubTotal.Text;
+            rpf.Total = lbTotal.Text;
+            rpf.Discount = lbDiscount.Text;
+            rpf.Tax = lbVat.Text;
+            rpf.ShowDialog();
+           
         }
 
     }
