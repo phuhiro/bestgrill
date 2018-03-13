@@ -44,6 +44,39 @@ namespace BestGrill
         }
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+ 
+        }
+
+        private void btnAddDish_Click(object sender, EventArgs e)
+        {
+            string dName = tbDishName.Text;
+            float dPrice = float.Parse(tbDishPrice.Text);
+            int categoryId = 1;
+            DishProvider.Instance.addDish(dName, dPrice, categoryId);
+            loadDish();
+        }
+
+        private void btnEditDish_Click(object sender, EventArgs e)
+        {
+            int dishId = int.Parse(tbDishID.Text);
+            string dName = tbDishName.Text;
+            float dPrice = float.Parse(tbDishPrice.Text);
+            int categoryId = 1;
+            DishProvider.Instance.editDish(dishId, dName, dPrice, categoryId);
+            loadDish();
+        }
+
+        private void btnDeleteDish_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn có chắc muốn xóa " + tbDishName.Text, "Xóa món", MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes) {
+                int dishId = int.Parse(tbDishID.Text);
+                DishProvider.Instance.deleteDish(dishId);
+                loadDish();
+            };
+        }
+
+        private void dvDishAdmin_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
             var rowSelected = dvDishAdmin.SelectedRows[0];
             string id = rowSelected.Cells["dishIDCol"].Value.ToString();
             string dName = rowSelected.Cells["DishName"].Value.ToString();
@@ -51,12 +84,6 @@ namespace BestGrill
             tbDishID.Text = id;
             tbDishName.Text = dName;
             tbDishPrice.Text = dPrice;
-        }
-
-        private void btnAddDish_Click(object sender, EventArgs e)
-        {
-            string dName = tbDishName.Text;
-
         }
     }
 }

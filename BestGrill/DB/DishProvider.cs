@@ -42,5 +42,30 @@ namespace BestGrill.DB
             }
             return listDish;
         }
+
+        public bool addDish(string name,float price,int category_id)
+        {
+            string query = "INSERT INTO dish(name,price,category_id) VALUES ('"+name + "',"+price+","+category_id+")";
+            
+            var result = DataProvider.Instance.ExecuteNonQuery(query);
+            if (result > 0) return true;
+            return false;
+        }
+
+        public int editDish(int dishId, string name, float price, int categoryId)
+        {
+            string query = "UPDATE dish SET name = '" + name + "'" + ", price="+ price+ ", category_id="+ categoryId 
+                            + " WHERE id = "+dishId;
+
+            var result = DataProvider.Instance.ExecuteNonQuery(query);
+            return result;
+        }
+
+        public int deleteDish(int dishId)
+        {
+            string query = "DELETE FROM dish WHERE id = " + dishId;
+            var result = DataProvider.Instance.ExecuteNonQuery(query);
+            return result;
+        }
     }
 }

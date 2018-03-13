@@ -44,14 +44,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dvDishAdmin = new System.Windows.Forms.DataGridView();
+            this.tbCategory = new System.Windows.Forms.TabPage();
+            this.tabDish = new System.Windows.Forms.TabPage();
+            this.tbIncome = new System.Windows.Forms.TabPage();
             this.dishIDCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DishName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoryCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dishBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tbCategory = new System.Windows.Forms.TabPage();
-            this.tabDish = new System.Windows.Forms.TabPage();
-            this.tbIncome = new System.Windows.Forms.TabPage();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbManage.SuspendLayout();
@@ -112,6 +112,7 @@
             this.btnDeleteDish.TabIndex = 10;
             this.btnDeleteDish.Text = "Xóa món";
             this.btnDeleteDish.UseVisualStyleBackColor = true;
+            this.btnDeleteDish.Click += new System.EventHandler(this.btnDeleteDish_Click);
             // 
             // btnEditDish
             // 
@@ -121,6 +122,7 @@
             this.btnEditDish.TabIndex = 9;
             this.btnEditDish.Text = "Sửa món";
             this.btnEditDish.UseVisualStyleBackColor = true;
+            this.btnEditDish.Click += new System.EventHandler(this.btnEditDish_Click);
             // 
             // btnAddDish
             // 
@@ -214,37 +216,8 @@
             this.dvDishAdmin.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dvDishAdmin.Size = new System.Drawing.Size(404, 386);
             this.dvDishAdmin.TabIndex = 0;
+            this.dvDishAdmin.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvDishAdmin_CellClick);
             this.dvDishAdmin.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
-            // 
-            // dishIDCol
-            // 
-            this.dishIDCol.DataPropertyName = "ID";
-            this.dishIDCol.HeaderText = "ID";
-            this.dishIDCol.Name = "dishIDCol";
-            this.dishIDCol.Width = 40;
-            // 
-            // DishName
-            // 
-            this.DishName.DataPropertyName = "Name";
-            this.DishName.HeaderText = "Tên món";
-            this.DishName.Name = "DishName";
-            this.DishName.Width = 150;
-            // 
-            // priceCol
-            // 
-            this.priceCol.DataPropertyName = "Price";
-            this.priceCol.HeaderText = "Giá";
-            this.priceCol.Name = "priceCol";
-            // 
-            // categoryCol
-            // 
-            this.categoryCol.DataPropertyName = "Category";
-            this.categoryCol.HeaderText = "Category";
-            this.categoryCol.Name = "categoryCol";
-            // 
-            // dishBindingSource
-            // 
-            this.dishBindingSource.DataSource = typeof(BestGrill.Model.Dish);
             // 
             // tbCategory
             // 
@@ -275,6 +248,36 @@
             this.tbIncome.TabIndex = 3;
             this.tbIncome.Text = "Doanh thu";
             this.tbIncome.UseVisualStyleBackColor = true;
+            // 
+            // dishIDCol
+            // 
+            this.dishIDCol.DataPropertyName = "ID";
+            this.dishIDCol.HeaderText = "ID";
+            this.dishIDCol.Name = "dishIDCol";
+            this.dishIDCol.Width = 40;
+            // 
+            // DishName
+            // 
+            this.DishName.DataPropertyName = "Name";
+            this.DishName.HeaderText = "Tên món";
+            this.DishName.Name = "DishName";
+            this.DishName.Width = 150;
+            // 
+            // priceCol
+            // 
+            this.priceCol.DataPropertyName = "Price";
+            this.priceCol.HeaderText = "Giá";
+            this.priceCol.Name = "priceCol";
+            // 
+            // categoryCol
+            // 
+            this.categoryCol.DataPropertyName = "Category";
+            this.categoryCol.HeaderText = "Category";
+            this.categoryCol.Name = "categoryCol";
+            // 
+            // dishBindingSource
+            // 
+            this.dishBindingSource.DataSource = typeof(BestGrill.Model.Dish);
             // 
             // dataGridViewTextBoxColumn1
             // 

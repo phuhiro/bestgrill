@@ -235,11 +235,33 @@ namespace BestGrill
 
         private void btnPay_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show( "Bạn có chắc muốn thanh toán " + this.objTableSelected.Name + "?","Xác nhận thanh toán"
-                                                    , MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            var mess = "Bạn có chắc muốn thanh toán " + this.objTableSelected.Name + "?";
+            mess = mess + Environment.NewLine + "Tổng số tiền : " + lbTotal.Text;
+            DialogResult result = MessageBox.Show( mess, "Thanh toán",MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if(result == DialogResult.OK)
             {
-                PayBill(this.billSelected);
+                var billId = this.billSelected;
+                var subTotal = lbSubTotal.Text;
+                var total = lbTotal.Text;
+                var discount = lbDiscount.Text;
+                var vat = lbVat.Text;
+                
+                var tmp = MessageBox.Show("Bạn có muốn in hóa đơn", "In hóa đơn", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (tmp == DialogResult.Yes)
+                {
+                    ReportForm rpf = new ReportForm();
+                    rpf.BillId = billId;
+                    rpf.SubTotal = subTotal;
+                    rpf.Total = total;
+                    rpf.Discount = discount;
+                    rpf.Tax = vat;
+                    rpf.ShowDialog();
+                    PayBill(this.billSelected);
+                }
+                else
+                {
+                    PayBill(this.billSelected);
+                }
             }
         }
 
