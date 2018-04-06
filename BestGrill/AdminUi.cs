@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,11 @@ namespace BestGrill
         public AdminUi()
         {
             InitializeComponent();
+            dvProfit.Columns[2].DefaultCellStyle.Format = "c2";
+            dvProfit.Columns[2].DefaultCellStyle.FormatProvider = CultureInfo.GetCultureInfo("vi-VN");
+            dvProfit.Columns[3].DefaultCellStyle.Format = "c2";
+            dvProfit.Columns[3].DefaultCellStyle.FormatProvider = CultureInfo.GetCultureInfo("vi-VN"); 
+            dvProfit.Columns[4].DefaultCellStyle.Format = "dd/MM/yyyy";
         }
 
         private void loadDish()
@@ -28,9 +34,36 @@ namespace BestGrill
                 dishBindingSource.Add(d);
             }
         }
+
+        private void loadDefaultProfilt()
+        {
+            float total = 0;
+            DateTime from = DateTime.Today;
+            DateTime to = DateTime.Today;
+            billBindingSource.Clear();
+            var lBill = BillProvider.Instance.loadBill(from, to);
+            foreach (Bill b in lBill)
+            {
+                total += b.Total;
+                billBindingSource.Add(b);
+            }
+            lbTotalBill.Text = total.ToString("c2", CultureInfo.GetCultureInfo("vi-VN"));
+        }
+        private void loadCate()
+        {
+
+            categoryBindingSource.Clear();
+            var lCate = CategoryProvider.Instance.loadCategoryList();
+            foreach (Category c in lCate)
+            {
+                categoryBindingSource.Add(c);
+            }
+        }
         private void AdminUi_Load(object sender, EventArgs e)
         {
             loadDish();
+            loadCate();
+            loadDefaultProfilt();
             loadCategoryToCombox();
         }
 
@@ -41,10 +74,6 @@ namespace BestGrill
             {
                 cbDishCategory.Items.Add(cate);
             }
-        }
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
-        {
- 
         }
 
         private void btnAddDish_Click(object sender, EventArgs e)
@@ -84,6 +113,55 @@ namespace BestGrill
             tbDishID.Text = id;
             tbDishName.Text = dName;
             tbDishPrice.Text = dPrice;
+        }
+
+        private void dvCate_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var rowSelected = dvCate.SelectedRows[0];
+            string id = rowSelected.Cells["cateIdDv"].Value.ToString();
+            string cName = rowSelected.Cells["cateNameDv"].Value.ToString();
+            tbCateId.Text = id;
+            tbCateName.Text = cName;
+        }
+
+        private void btnAddCate_Click(object sender, EventArgs e)
+        {
+            string cName = tbCateName.Text;
+            CategoryProvider.Instance.addCate(cName);
+            loadCate();
+        }
+
+        private void btnEditCate_Click(object sender, EventArgs e)
+        {
+            int cateId = int.Parse(tbCateId.Text);
+            string cName = tbCateName.Text;
+            CategoryProvider.Instance.editCate(cateId, cName);
+            loadCate();
+        }
+
+        private void btnDeleteCate_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn có chắc muốn xóa " + tbCateName.Text, "Xóa danh mục", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                int cateId = int.Parse(tbCateId.Text);
+                DishProvider.Instance.deleteDish(cateId);
+                 loadCate();
+            };
+        }
+
+        private void btnAnalytics_Click(object sender, EventArgs e)
+        {
+            float total = 0;
+            DateTime from = dtpFrom.Value;
+            DateTime to = dtpTo.Value;
+            billBindingSource.Clear();
+            var lBill = BillProvider.Instance.loadBill(from, to);
+            foreach (Bill b in lBill)
+            {
+                total += b.Total;
+                billBindingSource.Add(b);
+            }
+            lbTotalBill.Text = total.ToString("c2", CultureInfo.GetCultureInfo("vi-VN"));
         }
     }
 }

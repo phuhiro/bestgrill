@@ -31,21 +31,27 @@
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.billItemBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.billItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.billItemBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.billItemBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // reportViewer1
             // 
             this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            reportDataSource1.Name = "BillItemDataSet";
-            reportDataSource1.Value = this.billItemBindingSource;
+            reportDataSource1.Name = "DataSet1";
+            reportDataSource1.Value = this.billItemBindingSource1;
             this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
             this.reportViewer1.LocalReport.ReportEmbeddedResource = "BestGrill.ReportBill.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(0, 0);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.Size = new System.Drawing.Size(691, 454);
             this.reportViewer1.TabIndex = 0;
+            // 
+            // billItemBindingSource1
+            // 
+            this.billItemBindingSource1.DataSource = typeof(BestGrill.Model.BillItem);
             // 
             // billItemBindingSource
             // 
@@ -60,6 +66,7 @@
             this.Name = "ReportForm";
             this.Text = "ReportForm";
             this.Load += new System.EventHandler(this.ReportForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.billItemBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.billItemBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -69,6 +76,7 @@
 
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
         private System.Windows.Forms.BindingSource billItemBindingSource;
+        private System.Windows.Forms.BindingSource billItemBindingSource1;
 
     }
 }

@@ -89,7 +89,6 @@ namespace BestGrill.Model
             this.discount = (float)row["discount"];
             this.total = (float)row["total"];
             this.created_at = (DateTime)row["created_at"];
-            if (this.status) this.checkout_at = (DateTime)row["checkout_at"];
         }
     }
 }

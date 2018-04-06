@@ -39,8 +39,14 @@
             this.fltb = new System.Windows.Forms.FlowLayoutPanel();
             this.btnRefreshListTable = new System.Windows.Forms.Button();
             this.pMenus = new System.Windows.Forms.Panel();
+            this.btnChangeTable = new System.Windows.Forms.Button();
+            this.cbEmptyTable = new System.Windows.Forms.ComboBox();
             this.lbDishSelected = new System.Windows.Forms.Label();
             this.dvDish = new System.Windows.Forms.DataGridView();
+            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dishBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.numDish = new System.Windows.Forms.NumericUpDown();
@@ -48,6 +54,10 @@
             this.pBill = new System.Windows.Forms.Panel();
             this.lbEmptyBill = new System.Windows.Forms.Label();
             this.dvBill = new System.Windows.Forms.DataGridView();
+            this.dishNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.billItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lbTableSelected = new System.Windows.Forms.Label();
             this.tblResult = new System.Windows.Forms.TableLayoutPanel();
             this.lb = new System.Windows.Forms.Label();
@@ -58,27 +68,18 @@
             this.lbSubTotal = new System.Windows.Forms.Label();
             this.lbVat = new System.Windows.Forms.Label();
             this.lbDiscount = new System.Windows.Forms.Label();
-            this.btnMoveTable = new System.Windows.Forms.Button();
             this.btnPrintBill = new System.Windows.Forms.Button();
             this.btnPay = new System.Windows.Forms.Button();
-            this.billItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dishBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dishNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.pListTable.SuspendLayout();
             this.pMenus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvDish)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dishBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDish)).BeginInit();
             this.pBill.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvBill)).BeginInit();
-            this.tblResult.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.billItemBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dishBindingSource)).BeginInit();
+            this.tblResult.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -143,6 +144,8 @@
             // pMenus
             // 
             this.pMenus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pMenus.Controls.Add(this.btnChangeTable);
+            this.pMenus.Controls.Add(this.cbEmptyTable);
             this.pMenus.Controls.Add(this.lbDishSelected);
             this.pMenus.Controls.Add(this.dvDish);
             this.pMenus.Controls.Add(this.label1);
@@ -154,10 +157,28 @@
             this.pMenus.Size = new System.Drawing.Size(286, 476);
             this.pMenus.TabIndex = 2;
             // 
+            // btnChangeTable
+            // 
+            this.btnChangeTable.Location = new System.Drawing.Point(174, 339);
+            this.btnChangeTable.Name = "btnChangeTable";
+            this.btnChangeTable.Size = new System.Drawing.Size(75, 23);
+            this.btnChangeTable.TabIndex = 8;
+            this.btnChangeTable.Text = "Chuyển bàn";
+            this.btnChangeTable.UseVisualStyleBackColor = true;
+            this.btnChangeTable.Click += new System.EventHandler(this.btnChangeTable_Click);
+            // 
+            // cbEmptyTable
+            // 
+            this.cbEmptyTable.FormattingEnabled = true;
+            this.cbEmptyTable.Location = new System.Drawing.Point(52, 339);
+            this.cbEmptyTable.Name = "cbEmptyTable";
+            this.cbEmptyTable.Size = new System.Drawing.Size(93, 21);
+            this.cbEmptyTable.TabIndex = 7;
+            // 
             // lbDishSelected
             // 
             this.lbDishSelected.AutoSize = true;
-            this.lbDishSelected.Location = new System.Drawing.Point(15, 379);
+            this.lbDishSelected.Location = new System.Drawing.Point(49, 379);
             this.lbDishSelected.Name = "lbDishSelected";
             this.lbDishSelected.Size = new System.Drawing.Size(34, 13);
             this.lbDishSelected.TabIndex = 5;
@@ -181,6 +202,36 @@
             this.dvDish.Size = new System.Drawing.Size(247, 260);
             this.dvDish.TabIndex = 4;
             this.dvDish.SelectionChanged += new System.EventHandler(this.dvDish_SelectionChanged);
+            // 
+            // iDDataGridViewTextBoxColumn
+            // 
+            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iDDataGridViewTextBoxColumn.Width = 40;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.FillWeight = 127.3885F;
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Tên";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // priceDataGridViewTextBoxColumn
+            // 
+            this.priceDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
+            this.priceDataGridViewTextBoxColumn.FillWeight = 72.61147F;
+            this.priceDataGridViewTextBoxColumn.HeaderText = "Giá";
+            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
+            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dishBindingSource
+            // 
+            this.dishBindingSource.DataSource = typeof(BestGrill.Model.Dish);
             // 
             // label1
             // 
@@ -233,7 +284,6 @@
             this.pBill.Controls.Add(this.dvBill);
             this.pBill.Controls.Add(this.lbTableSelected);
             this.pBill.Controls.Add(this.tblResult);
-            this.pBill.Controls.Add(this.btnMoveTable);
             this.pBill.Controls.Add(this.btnPrintBill);
             this.pBill.Controls.Add(this.btnPay);
             this.pBill.Location = new System.Drawing.Point(676, 27);
@@ -269,6 +319,37 @@
             this.dvBill.RowHeadersVisible = false;
             this.dvBill.Size = new System.Drawing.Size(240, 215);
             this.dvBill.TabIndex = 5;
+            // 
+            // dishNameDataGridViewTextBoxColumn
+            // 
+            this.dishNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dishNameDataGridViewTextBoxColumn.DataPropertyName = "DishName";
+            this.dishNameDataGridViewTextBoxColumn.HeaderText = "Tên món";
+            this.dishNameDataGridViewTextBoxColumn.Name = "dishNameDataGridViewTextBoxColumn";
+            this.dishNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // quantityDataGridViewTextBoxColumn
+            // 
+            this.quantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
+            this.quantityDataGridViewTextBoxColumn.HeaderText = "SL";
+            this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
+            this.quantityDataGridViewTextBoxColumn.ReadOnly = true;
+            this.quantityDataGridViewTextBoxColumn.Width = 40;
+            // 
+            // totalDataGridViewTextBoxColumn
+            // 
+            this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
+            dataGridViewCellStyle1.Format = "N0";
+            dataGridViewCellStyle1.NullValue = null;
+            this.totalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            this.totalDataGridViewTextBoxColumn.HeaderText = "Tổng";
+            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
+            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
+            this.totalDataGridViewTextBoxColumn.Width = 50;
+            // 
+            // billItemBindingSource
+            // 
+            this.billItemBindingSource.DataSource = typeof(BestGrill.Model.BillItem);
             // 
             // lbTableSelected
             // 
@@ -376,22 +457,11 @@
             this.lbDiscount.TabIndex = 6;
             this.lbDiscount.Text = "0";
             // 
-            // btnMoveTable
-            // 
-            this.btnMoveTable.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveTable.Image")));
-            this.btnMoveTable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMoveTable.Location = new System.Drawing.Point(46, 433);
-            this.btnMoveTable.Name = "btnMoveTable";
-            this.btnMoveTable.Size = new System.Drawing.Size(166, 36);
-            this.btnMoveTable.TabIndex = 2;
-            this.btnMoveTable.Text = "Chuyển bàn";
-            this.btnMoveTable.UseVisualStyleBackColor = true;
-            // 
             // btnPrintBill
             // 
             this.btnPrintBill.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintBill.Image")));
             this.btnPrintBill.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrintBill.Location = new System.Drawing.Point(46, 389);
+            this.btnPrintBill.Location = new System.Drawing.Point(46, 407);
             this.btnPrintBill.Name = "btnPrintBill";
             this.btnPrintBill.Size = new System.Drawing.Size(166, 38);
             this.btnPrintBill.TabIndex = 1;
@@ -403,74 +473,13 @@
             // 
             this.btnPay.Image = ((System.Drawing.Image)(resources.GetObject("btnPay.Image")));
             this.btnPay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPay.Location = new System.Drawing.Point(46, 352);
+            this.btnPay.Location = new System.Drawing.Point(46, 370);
             this.btnPay.Name = "btnPay";
             this.btnPay.Size = new System.Drawing.Size(166, 31);
             this.btnPay.TabIndex = 0;
             this.btnPay.Text = "Thanh Toán";
             this.btnPay.UseVisualStyleBackColor = true;
             this.btnPay.Click += new System.EventHandler(this.btnPay_Click);
-            // 
-            // billItemBindingSource
-            // 
-            this.billItemBindingSource.DataSource = typeof(BestGrill.Model.BillItem);
-            // 
-            // iDDataGridViewTextBoxColumn
-            // 
-            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
-            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.iDDataGridViewTextBoxColumn.Width = 40;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.FillWeight = 127.3885F;
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Tên";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // priceDataGridViewTextBoxColumn
-            // 
-            this.priceDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            this.priceDataGridViewTextBoxColumn.FillWeight = 72.61147F;
-            this.priceDataGridViewTextBoxColumn.HeaderText = "Giá";
-            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
-            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dishBindingSource
-            // 
-            this.dishBindingSource.DataSource = typeof(BestGrill.Model.Dish);
-            // 
-            // dishNameDataGridViewTextBoxColumn
-            // 
-            this.dishNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dishNameDataGridViewTextBoxColumn.DataPropertyName = "DishName";
-            this.dishNameDataGridViewTextBoxColumn.HeaderText = "Tên món";
-            this.dishNameDataGridViewTextBoxColumn.Name = "dishNameDataGridViewTextBoxColumn";
-            this.dishNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // quantityDataGridViewTextBoxColumn
-            // 
-            this.quantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
-            this.quantityDataGridViewTextBoxColumn.HeaderText = "SL";
-            this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
-            this.quantityDataGridViewTextBoxColumn.ReadOnly = true;
-            this.quantityDataGridViewTextBoxColumn.Width = 40;
-            // 
-            // totalDataGridViewTextBoxColumn
-            // 
-            this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
-            dataGridViewCellStyle1.Format = "N0";
-            dataGridViewCellStyle1.NullValue = null;
-            this.totalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            this.totalDataGridViewTextBoxColumn.HeaderText = "Tổng";
-            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
-            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
-            this.totalDataGridViewTextBoxColumn.Width = 50;
             // 
             // MainUI
             // 
@@ -491,14 +500,14 @@
             this.pMenus.ResumeLayout(false);
             this.pMenus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvDish)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dishBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDish)).EndInit();
             this.pBill.ResumeLayout(false);
             this.pBill.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvBill)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.billItemBindingSource)).EndInit();
             this.tblResult.ResumeLayout(false);
             this.tblResult.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.billItemBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dishBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -514,7 +523,6 @@
         private System.Windows.Forms.Button btnAddDish;
         private System.Windows.Forms.Panel pBill;
         private System.Windows.Forms.NumericUpDown numDish;
-        private System.Windows.Forms.Button btnMoveTable;
         private System.Windows.Forms.Button btnPrintBill;
         private System.Windows.Forms.Button btnPay;
         private System.Windows.Forms.Button btnRefreshListTable;
@@ -544,6 +552,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dishNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantityDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ComboBox cbEmptyTable;
+        private System.Windows.Forms.Button btnChangeTable;
     }
 }
 

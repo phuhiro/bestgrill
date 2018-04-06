@@ -119,6 +119,9 @@
     <Compile Include="ReportForm.Designer.cs">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReportPrintDocument.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="Admin.resx">
       <DependentUpon>Admin.cs</DependentUpon>
     </EmbeddedResource>
@@ -140,7 +143,9 @@
     <EmbeddedResource Include="ReportForm.resx">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\BestGrill.Model.Bill.datasource" />
     <None Include="Properties\DataSources\BestGrill.Model.BillItem.datasource" />
+    <None Include="Properties\DataSources\BestGrill.Model.Category.datasource" />
     <None Include="Properties\DataSources\BestGrill.Model.Dish.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -158,7 +163,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

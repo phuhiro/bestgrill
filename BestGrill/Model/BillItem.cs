@@ -19,6 +19,14 @@ namespace BestGrill.Model
 
         private int dishId;
 
+        private float dongia;
+
+        public float Dongia
+        {
+            get { return dongia; }
+            set { dongia = value; }
+        }
+
         public int DishId
         {
             get { return dishId; }
@@ -54,12 +62,15 @@ namespace BestGrill.Model
             get { return billId; }
             set { billId = value; }
         }
+
+
         public BillItem(DataRow row)
         {
             this.iD = (Int64)row["id"];
             this.quantity = (int)row["quantity"];
             this.dishName = row["name"].ToString();
             float price = (float)row["price"];
+            this.dongia = price;
             this.total = price * this.quantity;
         }
     }

@@ -1,11 +1,13 @@
 ﻿using BestGrill.DB;
 using BestGrill.Model;
 using Microsoft.Reporting.WinForms;
+using PrintingReportNoViewer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,7 +65,7 @@ namespace BestGrill
             List<BillItem> listBillItem = BillItemProvider.Instance.loadBillItemById(this.billId);
             foreach (BillItem item in listBillItem)
             {
-                billItemBindingSource.Add(item);
+                billItemBindingSource1.Add(item);
                 subTotal += item.Total;
             }
             ReportParameter[] parms = new ReportParameter[4];
@@ -72,8 +74,13 @@ namespace BestGrill
             parms[2] = new ReportParameter("discount", this.discount);
             parms[3] = new ReportParameter("tax", this.tax);
             this.reportViewer1.LocalReport.SetParameters(parms);
+            this.reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
+            this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.RefreshReport();
-            
+            ReportPrintDocument printDoc = new ReportPrintDocument(reportViewer1.LocalReport);
+            printDoc.PrinterSettings.Copies = 1;
+            printDoc.Print();
+            Close();
         }
     }
 }

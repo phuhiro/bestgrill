@@ -72,6 +72,7 @@ namespace BestGrill
             {
                 DisablePayFunction();
             }
+            this.loadEmptyTable();
         }
 
         public void LoadCategoryList()
@@ -110,13 +111,15 @@ namespace BestGrill
         {
             btnPay.Enabled = false;
             btnPrintBill.Enabled = false;
-            btnMoveTable.Enabled = false;
+            cbEmptyTable.Enabled = false;
+            btnChangeTable.Enabled = false;
         }
         public void EnablePayFunction()
         {
             btnPay.Enabled = true;
             btnPrintBill.Enabled = true;
-            btnMoveTable.Enabled = true;
+            cbEmptyTable.Enabled = true;
+            btnChangeTable.Enabled = true;
         }
         public void LoadBillItem(Int64 billId)
         {
@@ -168,6 +171,17 @@ namespace BestGrill
             this.ResetBillPanel();
             this.IntForm();
         }
+
+        public void loadEmptyTable()
+        {
+            cbEmptyTable.Items.Clear();
+            var emptyTabes = TableProvider.Instance.loadEmptyTableList();
+            foreach (var table in emptyTabes)
+            {
+                cbEmptyTable.Items.Add(table.ID);
+            }
+        }
+
         #endregion
         #region Events
         private void btnRefreshListTable_Click(object sender, EventArgs e)
@@ -206,8 +220,8 @@ namespace BestGrill
                 DisablePayFunction();
                 return;
             }
-            Bill billSelected = new Bill(data.Rows[0]);
-            Int64 billId = billSelected.ID;
+            Bill billSelectedObj = new Bill(data.Rows[0]);
+            Int64 billId = billSelectedObj.ID;
             this.billSelected = billId;
             LoadBillItem(billId);
             EnablePayFunction();
@@ -228,6 +242,7 @@ namespace BestGrill
             {
                 this.billSelected = CreateNewBill();
                 EnablePayFunction();
+                this.loadEmptyTable();
             }
 
             AddDishToBill();
@@ -241,6 +256,7 @@ namespace BestGrill
             if(result == DialogResult.OK)
             {
                 var billId = this.billSelected;
+           
                 var subTotal = lbSubTotal.Text;
                 var total = lbTotal.Text;
                 var discount = lbDiscount.Text;
@@ -262,6 +278,7 @@ namespace BestGrill
                 {
                     PayBill(this.billSelected);
                 }
+                this.loadEmptyTable();
             }
         }
 
@@ -280,7 +297,18 @@ namespace BestGrill
             rpf.Discount = lbDiscount.Text;
             rpf.Tax = lbVat.Text;
             rpf.ShowDialog();
-           
+        }
+
+
+        private void btnChangeTable_Click(object sender, EventArgs e)
+        {
+            if (cbEmptyTable.SelectedIndex == -1) return;
+            var tableEmptySelected = Int32.Parse(cbEmptyTable.SelectedItem.ToString());
+            BillProvider.Instance.changeTable(tableEmptySelected, billSelected);
+            TableProvider.Instance.UpdateStatus(tableSelected, 0);
+            TableProvider.Instance.UpdateStatus(tableEmptySelected, 1);
+            LoadTabeList();
+            loadEmptyTable();
         }
 
     }

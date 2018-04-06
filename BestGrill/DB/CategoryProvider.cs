@@ -29,5 +29,28 @@ namespace BestGrill.DB
             }
             return categoryList;
         }
+
+        public bool addCate(string name)
+        {
+            string query = "INSERT INTO category(name) VALUES ('" + name + "')";
+            var result = DataProvider.Instance.ExecuteNonQuery(query);
+            if (result > 0) return true;
+            return false;
+        }
+
+        public int editCate(int cateId, string name)
+        {
+            string query = "UPDATE category SET name = '" + name + "'" + " WHERE id = " + cateId;
+
+            var result = DataProvider.Instance.ExecuteNonQuery(query);
+            return result;
+        }
+
+        public int deleteCate(int cateId)
+        {
+            string query = "DELETE FROM category WHERE id = " + cateId;
+            var result = DataProvider.Instance.ExecuteNonQuery(query);
+            return result;
+        }
     }
 }

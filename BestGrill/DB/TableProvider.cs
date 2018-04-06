@@ -29,7 +29,18 @@ namespace BestGrill.DB
             }
             return tableList;
         }
-
+        public List<Table> loadEmptyTableList()
+        {
+            List<Table> tableList = new List<Table>();
+            string query = "SELECT * FROM tables WHERE status = 0";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow row in data.Rows)
+            {
+                Table tmp = new Table(row);
+                tableList.Add(tmp);
+            }
+            return tableList;
+        }
         public int UpdateStatus(int tableId,int status )
         {
             int result = 0;
@@ -37,5 +48,6 @@ namespace BestGrill.DB
             DataProvider.Instance.ExecuteNonQuery(query);
             return result;
         }
+
     }
 }
