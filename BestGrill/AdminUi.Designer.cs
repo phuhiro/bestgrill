@@ -36,6 +36,7 @@
             this.btnEditDish = new System.Windows.Forms.Button();
             this.btnAddDish = new System.Windows.Forms.Button();
             this.cbDishCategory = new System.Windows.Forms.ComboBox();
+            this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tbDishPrice = new System.Windows.Forms.TextBox();
             this.tbDishName = new System.Windows.Forms.TextBox();
             this.tbDishID = new System.Windows.Forms.TextBox();
@@ -44,6 +45,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dvDishAdmin = new System.Windows.Forms.DataGridView();
+            this.dishIDCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DishName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categoryCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dishBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tbCategory = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnDeleteCate = new System.Windows.Forms.Button();
@@ -54,29 +60,23 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.dvCate = new System.Windows.Forms.DataGridView();
+            this.cateIdDv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cateNameDv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbIncome = new System.Windows.Forms.TabPage();
             this.lbTotalBill = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.btnAnalytics = new System.Windows.Forms.Button();
             this.dvProfit = new System.Windows.Forms.DataGridView();
-            this.label8 = new System.Windows.Forms.Label();
-            this.dtpTo = new System.Windows.Forms.DateTimePicker();
-            this.label7 = new System.Windows.Forms.Label();
-            this.dtpFrom = new System.Windows.Forms.DateTimePicker();
-            this.dishIDCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DishName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoryCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dishBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.cateIdDv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cateNameDv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.discountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.createdatDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.billBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label8 = new System.Windows.Forms.Label();
+            this.dtpTo = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dtpFrom = new System.Windows.Forms.DateTimePicker();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -85,14 +85,14 @@
             this.tbManage.SuspendLayout();
             this.tabMenu.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dvDishAdmin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dishBindingSource)).BeginInit();
             this.tbCategory.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvCate)).BeginInit();
             this.tbIncome.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvProfit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dishBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.billBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -170,11 +170,17 @@
             // 
             // cbDishCategory
             // 
+            this.cbDishCategory.DataSource = this.categoryBindingSource;
+            this.cbDishCategory.DisplayMember = "Name";
             this.cbDishCategory.FormattingEnabled = true;
             this.cbDishCategory.Location = new System.Drawing.Point(125, 153);
             this.cbDishCategory.Name = "cbDishCategory";
             this.cbDishCategory.Size = new System.Drawing.Size(144, 21);
             this.cbDishCategory.TabIndex = 7;
+            // 
+            // categoryBindingSource
+            // 
+            this.categoryBindingSource.DataSource = typeof(BestGrill.Model.Category);
             // 
             // tbDishPrice
             // 
@@ -251,6 +257,37 @@
             this.dvDishAdmin.Size = new System.Drawing.Size(404, 386);
             this.dvDishAdmin.TabIndex = 0;
             this.dvDishAdmin.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvDishAdmin_CellClick);
+            // 
+            // dishIDCol
+            // 
+            this.dishIDCol.DataPropertyName = "ID";
+            this.dishIDCol.HeaderText = "ID";
+            this.dishIDCol.Name = "dishIDCol";
+            this.dishIDCol.Width = 40;
+            // 
+            // DishName
+            // 
+            this.DishName.DataPropertyName = "Name";
+            this.DishName.HeaderText = "Tên món";
+            this.DishName.Name = "DishName";
+            this.DishName.Width = 150;
+            // 
+            // priceCol
+            // 
+            this.priceCol.DataPropertyName = "Price";
+            this.priceCol.HeaderText = "Giá";
+            this.priceCol.Name = "priceCol";
+            // 
+            // categoryCol
+            // 
+            this.categoryCol.DataPropertyName = "CateName";
+            this.categoryCol.HeaderText = "Category";
+            this.categoryCol.Name = "categoryCol";
+            this.categoryCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // dishBindingSource
+            // 
+            this.dishBindingSource.DataSource = typeof(BestGrill.Model.Dish);
             // 
             // tbCategory
             // 
@@ -357,6 +394,20 @@
             this.dvCate.TabIndex = 0;
             this.dvCate.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvCate_CellClick);
             // 
+            // cateIdDv
+            // 
+            this.cateIdDv.DataPropertyName = "ID";
+            this.cateIdDv.HeaderText = "ID";
+            this.cateIdDv.Name = "cateIdDv";
+            this.cateIdDv.Width = 50;
+            // 
+            // cateNameDv
+            // 
+            this.cateNameDv.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cateNameDv.DataPropertyName = "Name";
+            this.cateNameDv.HeaderText = "Tên danh mục";
+            this.cateNameDv.Name = "cateNameDv";
+            // 
             // tbIncome
             // 
             this.tbIncome.Controls.Add(this.lbTotalBill);
@@ -418,87 +469,6 @@
             this.dvProfit.Size = new System.Drawing.Size(601, 242);
             this.dvProfit.TabIndex = 4;
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(307, 45);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(27, 13);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Đến";
-            // 
-            // dtpTo
-            // 
-            this.dtpTo.Location = new System.Drawing.Point(351, 41);
-            this.dtpTo.Name = "dtpTo";
-            this.dtpTo.Size = new System.Drawing.Size(200, 20);
-            this.dtpTo.TabIndex = 2;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(60, 45);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(20, 13);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Từ";
-            // 
-            // dtpFrom
-            // 
-            this.dtpFrom.Location = new System.Drawing.Point(101, 40);
-            this.dtpFrom.Name = "dtpFrom";
-            this.dtpFrom.Size = new System.Drawing.Size(200, 20);
-            this.dtpFrom.TabIndex = 0;
-            this.dtpFrom.Value = new System.DateTime(2018, 4, 6, 17, 39, 58, 0);
-            // 
-            // dishIDCol
-            // 
-            this.dishIDCol.DataPropertyName = "ID";
-            this.dishIDCol.HeaderText = "ID";
-            this.dishIDCol.Name = "dishIDCol";
-            this.dishIDCol.Width = 40;
-            // 
-            // DishName
-            // 
-            this.DishName.DataPropertyName = "Name";
-            this.DishName.HeaderText = "Tên món";
-            this.DishName.Name = "DishName";
-            this.DishName.Width = 150;
-            // 
-            // priceCol
-            // 
-            this.priceCol.DataPropertyName = "Price";
-            this.priceCol.HeaderText = "Giá";
-            this.priceCol.Name = "priceCol";
-            // 
-            // categoryCol
-            // 
-            this.categoryCol.DataPropertyName = "Category";
-            this.categoryCol.HeaderText = "Category";
-            this.categoryCol.Name = "categoryCol";
-            // 
-            // dishBindingSource
-            // 
-            this.dishBindingSource.DataSource = typeof(BestGrill.Model.Dish);
-            // 
-            // cateIdDv
-            // 
-            this.cateIdDv.DataPropertyName = "ID";
-            this.cateIdDv.HeaderText = "ID";
-            this.cateIdDv.Name = "cateIdDv";
-            this.cateIdDv.Width = 50;
-            // 
-            // cateNameDv
-            // 
-            this.cateNameDv.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cateNameDv.DataPropertyName = "Name";
-            this.cateNameDv.HeaderText = "Tên danh mục";
-            this.cateNameDv.Name = "cateNameDv";
-            // 
-            // categoryBindingSource
-            // 
-            this.categoryBindingSource.DataSource = typeof(BestGrill.Model.Category);
-            // 
             // ID
             // 
             this.ID.DataPropertyName = "ID";
@@ -533,6 +503,39 @@
             // billBindingSource
             // 
             this.billBindingSource.DataSource = typeof(BestGrill.Model.Bill);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(307, 45);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(27, 13);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Đến";
+            // 
+            // dtpTo
+            // 
+            this.dtpTo.Location = new System.Drawing.Point(351, 41);
+            this.dtpTo.Name = "dtpTo";
+            this.dtpTo.Size = new System.Drawing.Size(200, 20);
+            this.dtpTo.TabIndex = 2;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(60, 45);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(20, 13);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Từ";
+            // 
+            // dtpFrom
+            // 
+            this.dtpFrom.Location = new System.Drawing.Point(101, 40);
+            this.dtpFrom.Name = "dtpFrom";
+            this.dtpFrom.Size = new System.Drawing.Size(200, 20);
+            this.dtpFrom.TabIndex = 0;
+            this.dtpFrom.Value = new System.DateTime(2018, 4, 9, 0, 0, 0, 0);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -576,7 +579,9 @@
             this.tabMenu.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dvDishAdmin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dishBindingSource)).EndInit();
             this.tbCategory.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -584,8 +589,6 @@
             this.tbIncome.ResumeLayout(false);
             this.tbIncome.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvProfit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dishBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.billBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -613,10 +616,6 @@
         private System.Windows.Forms.BindingSource dishBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dishIDCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DishName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn priceCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn categoryCol;
         private System.Windows.Forms.DataGridView dvCate;
         private System.Windows.Forms.BindingSource categoryBindingSource;
         private System.Windows.Forms.Panel panel2;
@@ -646,5 +645,9 @@
         private System.Windows.Forms.BindingSource billBindingSource;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lbTotalBill;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dishIDCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DishName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn priceCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn categoryCol;
     }
 }

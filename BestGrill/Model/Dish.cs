@@ -22,6 +22,7 @@ namespace BestGrill.Model
             this.name = row["name"].ToString();
             this.price = (float) row["price"];
             this.category = (int)row["category_id"];
+            this.cateName = row.Table.Columns.Contains("category_name") == true ? row["category_name"].ToString() : "";
         }
         private int iD;
 
@@ -52,6 +53,14 @@ namespace BestGrill.Model
         {
             get { return category; }
             set { category = value; }
+        }
+
+        private string cateName;
+
+        public string CateName
+        {
+            get { return cateName; }
+            set { cateName = value; }
         }
     }
 }

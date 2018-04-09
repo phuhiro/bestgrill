@@ -69,11 +69,11 @@ namespace BestGrill
 
         private void loadCategoryToCombox()
         {
-            var categories = CategoryProvider.Instance.loadCategoryList();
-            foreach(var cate in categories)
-            {
-                cbDishCategory.Items.Add(cate);
-            }
+            //var categories = CategoryProvider.Instance.loadCategoryList();
+            //foreach(var cate in categories)
+            //{
+            //    cbDishCategory.Items.Add(cate.Name);
+            //}
         }
 
         private void btnAddDish_Click(object sender, EventArgs e)
@@ -90,7 +90,8 @@ namespace BestGrill
             int dishId = int.Parse(tbDishID.Text);
             string dName = tbDishName.Text;
             float dPrice = float.Parse(tbDishPrice.Text);
-            int categoryId = 1;
+            Category tmp = (Category) (cbDishCategory.SelectedItem);
+            int categoryId = tmp.ID;
             DishProvider.Instance.editDish(dishId, dName, dPrice, categoryId);
             loadDish();
         }
@@ -144,8 +145,8 @@ namespace BestGrill
             if (MessageBox.Show("Bạn có chắc muốn xóa " + tbCateName.Text, "Xóa danh mục", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 int cateId = int.Parse(tbCateId.Text);
-                DishProvider.Instance.deleteDish(cateId);
-                 loadCate();
+                CategoryProvider.Instance.deleteCate(cateId);
+                loadCate();
             };
         }
 

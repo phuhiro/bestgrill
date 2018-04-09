@@ -21,7 +21,7 @@ namespace BestGrill.DB
         public List<Dish> loadAllDish()
         {
             List<Dish> lDish = new List<Dish>();
-            string query = "SELECT * FROM dish";
+            string query = "SELECT dish.*,category.name as category_name FROM dish INNER JOIN category ON dish.category_id = category.id";
             DataTable data = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow row in data.Rows)
             {

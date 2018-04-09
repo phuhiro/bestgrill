@@ -80,6 +80,7 @@
     <Compile Include="AdminUi.Designer.cs">
       <DependentUpon>AdminUi.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComboBoxItem.cs" />
     <Compile Include="DataGridViewNumericUpDownElements\NumericUpDownColumn.cs">
       <SubType>Component</SubType>
     </Compile>
