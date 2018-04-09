@@ -28,6 +28,7 @@ namespace BestGrill
                 this.Close();
                 AdminUi adUi = new AdminUi();
                 adUi.BringToFront();
+                adUi.TopMost = true;
                 adUi.Show();
             }
         }
