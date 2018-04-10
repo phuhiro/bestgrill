@@ -30,6 +30,10 @@ namespace BestGrill
                 adUi.TopMost = true;
                 adUi.Show();
             }
+            else
+            {
+                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng", "Lỗi đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -24,6 +24,13 @@ namespace BestGrill
             get { return subTotal; }
             set { subTotal = value; }
         }
+        private int table;
+
+        public int Table
+        {
+            get { return table; }
+            set { table = value; }
+        }
         private string total;
 
         public string Total
@@ -68,20 +75,19 @@ namespace BestGrill
                 billItemBindingSource1.Add(item);
                 subTotal += item.Total;
             }
-            ReportParameter[] parms = new ReportParameter[5];
+            ReportParameter[] parms = new ReportParameter[4];
             parms[0] = new ReportParameter("subTotal", this.subTotal);
             parms[1] = new ReportParameter("total", this.total);
-            parms[2] = new ReportParameter("discount", this.discount);
-            parms[3] = new ReportParameter("tax", this.tax); 
-            parms[4] = new ReportParameter("datepay", DateTime.Today.ToString("dd-MM-yyyy"));
+            parms[2] = new ReportParameter("table", this.table.ToString());
+            parms[3] = new ReportParameter("datepay", DateTime.Today.ToString("dd-MM-yyyy"));
             this.reportViewer1.LocalReport.SetParameters(parms);
             //this.reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.RefreshReport();
-            ReportPrintDocument printDoc = new ReportPrintDocument(reportViewer1.LocalReport);
-            printDoc.PrinterSettings.Copies = 1;
-            printDoc.Print();
-            Close();
+            //ReportPrintDocument printDoc = new ReportPrintDocument(reportViewer1.LocalReport);
+            //printDoc.PrinterSettings.Copies = 1;
+            //printDoc.Print();
+            //Close();
         }
     }
 }
