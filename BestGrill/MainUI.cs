@@ -309,6 +309,8 @@ namespace BestGrill
             TableProvider.Instance.UpdateStatus(tableEmptySelected, 1);
             LoadTabeList();
             loadEmptyTable();
+            tableSelected = tableEmptySelected;
+            this.lbTableSelected.Text = "Bàn số " + tableSelected;
         }
 
     }

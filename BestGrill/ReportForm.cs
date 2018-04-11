@@ -84,10 +84,10 @@ namespace BestGrill
             //this.reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.RefreshReport();
-            //ReportPrintDocument printDoc = new ReportPrintDocument(reportViewer1.LocalReport);
-            //printDoc.PrinterSettings.Copies = 1;
-            //printDoc.Print();
-            //Close();
+            ReportPrintDocument printDoc = new ReportPrintDocument(reportViewer1.LocalReport);
+            printDoc.PrinterSettings.Copies = 1;
+            printDoc.Print();
+            Close();
         }
     }
 }
