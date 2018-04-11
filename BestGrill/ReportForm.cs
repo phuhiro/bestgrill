@@ -72,8 +72,11 @@ namespace BestGrill
             List<BillItem> listBillItem = BillItemProvider.Instance.loadBillItemById(this.billId);
             foreach (BillItem item in listBillItem)
             {
-                billItemBindingSource1.Add(item);
-                subTotal += item.Total;
+                if (item.Quantity > 0)
+                {
+                    billItemBindingSource1.Add(item);
+                    subTotal += item.Total;
+                }
             }
             ReportParameter[] parms = new ReportParameter[4];
             parms[0] = new ReportParameter("subTotal", this.subTotal);

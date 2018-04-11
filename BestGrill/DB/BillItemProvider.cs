@@ -21,12 +21,12 @@ namespace BestGrill.DB
         public List<BillItem> loadBillItemById(Int64 billId)
         {
             List<BillItem> listBillItem = new List<BillItem>();
-            string query = "SELECT bill_item.id,dish.name,dish.price,bill_item.quantity FROM bill_item "+
-                            "INNER JOIN bill ON bill_item.bill_id = bill.id "+
-                            "INNER JOIN dish ON dish.id = bill_item.dish_id "+
+            string query = "SELECT bill_item.id,dish.name,dish.price,bill_item.quantity FROM bill_item " +
+                            "INNER JOIN bill ON bill_item.bill_id = bill.id " +
+                            "INNER JOIN dish ON dish.id = bill_item.dish_id " +
                             "WHERE bill.status = 0 AND bill_item.bill_id = " + billId;
             DataTable data = DataProvider.Instance.ExecuteQuery(query);
-            foreach(DataRow row in data.Rows)
+            foreach (DataRow row in data.Rows)
             {
                 listBillItem.Add(new BillItem(row));
             }
@@ -52,15 +52,15 @@ namespace BestGrill.DB
                 int quantityDb = (int)(firstRow["quantity"]);
                 if (quantity + quantityDb < 0) return -1;
                 query = "UPDATE bill_item SET quantity = quantity + " + quantity
-                        + " WHERE bill_id = " + billId + " AND dish_id = "+ dishId;
+                        + " WHERE bill_id = " + billId + " AND dish_id = " + dishId;
             }
             else
             {
                 query = "INSERT INTO bill_item(dish_id,quantity,bill_id) VALUES ("
-                        + dishId +"," + quantity + ","+ billId +")";
+                        + dishId + "," + quantity + "," + billId + ")";
             }
-            result = DataProvider.Instance.ExecuteNonQuery(query);
-            return result;
+                result = DataProvider.Instance.ExecuteNonQuery(query);
+                return result;
         }
     }
 }
