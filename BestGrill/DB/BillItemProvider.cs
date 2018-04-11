@@ -44,13 +44,13 @@ namespace BestGrill.DB
         {
             int result = 0;
             string query = "";
-            string testQuery = "SELECT quantity FROM bill_item WHERE bill_id =" + billId + " AND dish_id = " +dishId +" LIMIT 1";
-            var tmp = DataProvider.Instance.ExecuteQuery(testQuery);
-            var firstRow = tmp.Rows[0];
-            int quantityDb = (int) (firstRow["quantity"]);
-            if (quantity + quantityDb < 0) return -1;
             if (dishExist(dishId, billId))
             {
+                string testQuery = "SELECT quantity FROM bill_item WHERE bill_id =" + billId + " AND dish_id = " + dishId + " LIMIT 1";
+                var tmp = DataProvider.Instance.ExecuteQuery(testQuery);
+                var firstRow = tmp.Rows[0];
+                int quantityDb = (int)(firstRow["quantity"]);
+                if (quantity + quantityDb < 0) return -1;
                 query = "UPDATE bill_item SET quantity = quantity + " + quantity
                         + " WHERE bill_id = " + billId + " AND dish_id = "+ dishId;
             }
