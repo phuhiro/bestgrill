@@ -130,8 +130,11 @@ namespace BestGrill
             List<BillItem> listBillItem = BillItemProvider.Instance.loadBillItemById(billId);
             foreach(BillItem item in listBillItem)
             {
-                billItemBindingSource.Add(item);
-                subTotal += item.Total;
+                if (item.Quantity > 0)
+                {
+                    billItemBindingSource.Add(item);
+                    subTotal += item.Total;
+                } 
             }
             lbEmptyBill.Visible = false;
             float totalBill = subTotal + subTotal * vat / 100 - subTotal * discount / 100;
@@ -146,7 +149,8 @@ namespace BestGrill
             var row = dvDish.SelectedRows[0];
             int dishId = (int)(row.Cells[0].Value);
             int quantity = (int)numDish.Value;
-            BillItemProvider.Instance.AddDishToBill(dishId, quantity, this.billSelected);
+            var result = BillItemProvider.Instance.AddDishToBill(dishId, quantity, this.billSelected);
+            if (result == -1) MessageBox.Show("Thêm món thất bại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             LoadBillItem(this.billSelected);
         }
 
@@ -296,6 +300,7 @@ namespace BestGrill
             rpf.Total = lbTotal.Text;
             rpf.Discount = lbDiscount.Text;
             rpf.Tax = lbVat.Text;
+            rpf.Table = tableSelected;
             rpf.ShowDialog();
         }
 

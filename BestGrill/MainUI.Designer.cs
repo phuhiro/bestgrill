@@ -254,6 +254,11 @@
             // numDish
             // 
             this.numDish.Location = new System.Drawing.Point(174, 377);
+            this.numDish.Minimum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            -2147483648});
             this.numDish.Name = "numDish";
             this.numDish.Size = new System.Drawing.Size(57, 20);
             this.numDish.TabIndex = 1;
